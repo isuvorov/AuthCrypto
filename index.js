@@ -39,6 +39,11 @@
     decrypt: function(token) {
       return this.decryptObject(token);
     },
+    /*
+        Sample Express-like controller req,res wrapper
+    
+        You can copy this and  paste & change in real controller
+    */
     controller: function(req, res, UserModel, UserModelConvert) {
       var rawData, redirect, token, userData, v;
       if (UserModelConvert == null) UserModelConvert = null;

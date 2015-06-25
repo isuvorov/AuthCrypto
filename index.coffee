@@ -4,6 +4,7 @@ crypto = require('crypto')
 module.exports = AuthCrypto =
   algorithm: 'aes-256-ctr'
   password: 'CHANGE_THIS_PASSWORD_PLEASE-l9MB2tE3hTiI0W'
+
   encryptString: (text, password = null) ->
     if password == null
       password = @password
@@ -28,11 +29,18 @@ module.exports = AuthCrypto =
   decryptObject: (token) ->
     JSON.parse @decryptString(token)
   encrypt: (object) ->
-#    console.log {object}
     @encryptObject object
   decrypt: (token) ->
     @decryptObject token
 
+  ###
+    Sample Express-like controller req,res wrapper
+
+    You can copy this and  paste & change in real controller
+
+
+
+  ###
   controller: (req, res, UserModel, UserModelConvert = null) ->
     if UserModelConvert == null
       UserModelConvert = (rawData)->
@@ -67,4 +75,3 @@ module.exports = AuthCrypto =
           return res.redirect redirect
         else
           return res.json user
-
