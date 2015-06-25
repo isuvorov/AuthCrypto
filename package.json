@@ -1,5 +1,5 @@
 {
-  "name": "AuthCrypto",
+  "name": "authcrypto",
   "version": "1.0.0",
   "description": "Create json-based token, encrypt/decrypt token at other server ",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/isuvorov/AuthCrypto.git"
+    "url": "https://github.com/isuvorov/authcrypto.git"
   },
   "keywords": [
     "json",
@@ -19,9 +19,9 @@
   "author": "isuvorov",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/isuvorov/AuthCrypto/issues"
+    "url": "https://github.com/isuvorov/authcrypto/issues"
   },
-  "homepage": "https://github.com/isuvorov/AuthCrypto",
+  "homepage": "https://github.com/isuvorov/authcrypto",
   "dependencies": {
     "2dollars": "^1.0.0",
     "crypto": "0.0.3"

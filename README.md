@@ -8,7 +8,7 @@ Create json-based token, encrypt/decrypt token at other server
   Primary-Server
   server1.com
 ###
-AuthCrypto = require "AuthCrypto"
+AuthCrypto = require "authcrypto"
 AuthCrypto.password = "MySercretP@ssword"
 
 HomeController =
@@ -28,7 +28,7 @@ HomeController =
   Slave-Server
   server2.com
 ###
-AuthCrypto = require "AuthCrypto"
+AuthCrypto = require "authcrypto"
 AuthCrypto.password = "MySercretP@ssword"
 
 AdminController =
