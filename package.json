@@ -1,6 +1,6 @@
 {
   "name": "authcrypto",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Create json-based token, encrypt/decrypt token at other server ",
   "main": "index.js",
   "scripts": {

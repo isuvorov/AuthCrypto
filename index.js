@@ -22,7 +22,7 @@
       if (password == null) password = null;
       if (password === null) password = this.password;
       text = $$.base64UrlDecode(text);
-      decipher = crypto.createDecipher(algorithm, password);
+      decipher = crypto.createDecipher(this.algorithm, password);
       dec = decipher.update(text, 'base64', 'utf8');
       dec += decipher.final('utf8');
       return dec;
@@ -31,6 +31,7 @@
       return this.encryptString(JSON.stringify(object));
     },
     decryptObject: function(token) {
+      console.log;
       return JSON.parse(this.decryptString(token));
     },
     encrypt: function(object) {
@@ -44,6 +45,7 @@
     
         You can copy this and  paste & change in real controller
     */
+    findCreateUpdate: $$.findCreateUpdate,
     controller: function(req, res, UserModel, UserModelConvert) {
       var rawData, redirect, token, userData, v;
       if (UserModelConvert == null) UserModelConvert = null;
@@ -80,7 +82,7 @@
           err: "не удалось расшифровать ID в токене"
         });
       }
-      return $$.findCreateUpdate(UserModel, userData, function(err, user) {
+      return this.findCreateUpdate(UserModel, userData, function(err, user) {
         return req.login(user, function(err) {
           if (redirect) {
             return res.redirect(redirect);

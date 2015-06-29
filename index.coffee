@@ -20,13 +20,14 @@ module.exports = AuthCrypto =
       password = @password
 
     text = $$.base64UrlDecode(text)
-    decipher = crypto.createDecipher(algorithm, password)
+    decipher = crypto.createDecipher(@algorithm, password)
     dec = decipher.update(text, 'base64', 'utf8')
     dec += decipher.final('utf8')
     dec
   encryptObject: (object) ->
     @encryptString JSON.stringify(object)
   decryptObject: (token) ->
+    console.log
     JSON.parse @decryptString(token)
   encrypt: (object) ->
     @encryptObject object
@@ -41,6 +42,7 @@ module.exports = AuthCrypto =
 
 
   ###
+  findCreateUpdate: $$.findCreateUpdate
   controller: (req, res, UserModel, UserModelConvert = null) ->
     if UserModelConvert == null
       UserModelConvert = (rawData)->
@@ -68,7 +70,7 @@ module.exports = AuthCrypto =
     if !rawData.id
       return res.serverError {err: "не удалось расшифровать ID в токене"}
 
-    $$.findCreateUpdate UserModel, userData, (err, user)->
+    @findCreateUpdate UserModel, userData, (err, user)->
 #      return res.json {user}
       req.login user, (err) ->
         if redirect
