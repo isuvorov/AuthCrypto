@@ -77,3 +77,46 @@ module.exports = AuthCrypto =
           return res.redirect redirect
         else
           return res.json user
+
+
+  gatewayResolve: (req, res)->
+
+    if !req.user
+      params = req.allParams()
+      redirect = "/auth/gateway?" +
+        Object.keys(params).filter (key)->
+          typeof params[key] != "undefined"
+        .map (key)->
+          key + "=" + encodeURIComponent(params[key])
+        .join("&")
+
+      return res.redirect "/auth/login?redirect=" + encodeURIComponent(redirect)
+
+
+    userData =
+      id: req.user.id
+      username: req.user.id + "@appberry.ru"
+      name: req.user.getFullName()
+      avatar: req.user.getAvatar()
+      role: req.user.role || "user"
+      platform: "appberry.ru"
+
+    token = AuthCrypto.encrypt userData
+
+  #  token = "Q3zn36OYixdKwICsuyrMrQXLTOGA7RMmkK83wE9Zu5DpVOrF9zlg2BNbw0DTfinm9rKn8uRDJJulBcN9EPUooDLu6gD1kWnaF1MaNDORxZcLAl3bU7YIdYB_c8s3OlOyZ2wQpVXMKHdAgkvzcXwtdcY2QmKzKfTzCWSzbbkWzw3b26P6c1zwZXPfPyX9h75TgyLYF6kb9cWlIAQAqAuhXQ98KsvXxhAkezkHRGNp7Txs5rfcvjq4C2YjZvrxcxwtjhnOp0gMMrZpBj0E6InNDjbmkJZ4wZmzjqkFJXlHKQ2iC-euHoeb7oxaNi-Nk8KMoA3PU3VBG-PU"
+    return res.redirect req.param("redirect") + "&token=" +  token;
+  gateway: (req, res, User)->
+
+
+      url = req.protocol + '://' + req.host + "/auth/crypto?v=1&redirect=" + encodeURIComponent(req.url)
+      return res.redirect req._sails.config.authcrypto.gateway + "?token=123&redirect=" + encodeURIComponent(url)
+
+      return res.redirect2 {
+        _url: req._sails.config.authcrypto.gateway,
+        token: 123,
+        redirect: {
+          _url: req.protocol + '://' + req.host + "/auth/crypto",
+          v: 1,
+          redirect: req.url
+        }
+      }
