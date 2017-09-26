@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/isuvorov/authcrypto",
   "dependencies": {
-    "2dollars": "^1.0.0",
-    "crypto": "0.0.3"
+    "2dollars": "^1.0.0"
   }
 }
